@@ -28,8 +28,8 @@ public class PizzaService {
         Iterable<Pizza> allPizza = pizzaRepo.findAll();
         return new ResponseEntity<>(pizzaRepo.findAll(), HttpStatus.OK);
     }
-    public ResponseEntity<?> getPizza(Long customerID) {
-        Optional<Customer> b = customerRepo.findById(customerID);
+    public ResponseEntity<?> getPizza(Long pizzaID) {
+        Optional<Pizza> b = pizzaRepo.findById(pizzaID);
         return new ResponseEntity<> (b, HttpStatus.OK);
     }
     public Optional<Pizza> updatePizza(Long customerID,Pizza pizza){
@@ -38,8 +38,8 @@ public class PizzaService {
             return pizzaRepo.save(pizza);
         });
     }
-    public ResponseEntity<?> deletePizza(Long customerID) {
-        customerRepo.deleteById(customerID);
+    public ResponseEntity<?> deletePizza(Long pizzaID) {
+        pizzaRepo.deleteById(pizzaID);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
