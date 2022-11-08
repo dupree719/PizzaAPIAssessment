@@ -9,6 +9,8 @@ import pizzaparlor.pizza.models.Pizza;
 import pizzaparlor.pizza.repos.CustomerRepo;
 import pizzaparlor.pizza.repos.PizzaRepo;
 
+import java.util.Optional;
+
 @Service
 public class PizzaService {
     @Autowired
@@ -25,6 +27,20 @@ public class PizzaService {
     public ResponseEntity<Iterable<Pizza>> getAllPizza() {
         Iterable<Pizza> allPizza = pizzaRepo.findAll();
         return new ResponseEntity<>(pizzaRepo.findAll(), HttpStatus.OK);
+    }
+    public ResponseEntity<?> getPizza(Long customerID) {
+        Optional<Customer> b = customerRepo.findById(customerID);
+        return new ResponseEntity<> (b, HttpStatus.OK);
+    }
+    public Optional<Pizza> updatePizza(Long customerID,Pizza pizza){
+        return customerRepo.findById(customerID).map(customer -> {
+            pizza.setCustomer(customer);
+            return pizzaRepo.save(pizza);
+        });
+    }
+    public ResponseEntity<?> deletePizza(Long customerID) {
+        customerRepo.deleteById(customerID);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

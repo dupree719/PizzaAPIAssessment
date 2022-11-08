@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import pizzaparlor.pizza.models.Customer;
 import pizzaparlor.pizza.repos.CustomerRepo;
 
+import java.util.Optional;
+
 @Service
 public class CustomerService {
 
@@ -19,5 +21,19 @@ public class CustomerService {
     public ResponseEntity<Iterable<Customer>> getAllCustomers() {
         Iterable<Customer> allCustomers = customerRepo.findAll();
         return new ResponseEntity<>(customerRepo.findAll(), HttpStatus.OK);
+    }
+    public ResponseEntity<?> getCustomer(Long customerID) {
+        Optional<Customer> b = customerRepo.findById(customerID);
+        return new ResponseEntity<> (b, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> updateCustomer(Customer customer, Long customerID) {
+        customerRepo.save(customer);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> deleteCustomer(Long customerID) {
+        customerRepo.deleteById(customerID);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
